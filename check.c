@@ -6,7 +6,7 @@
 /*   By: maolivie <maolivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 15:37:18 by kemethen          #+#    #+#             */
-/*   Updated: 2019/01/04 20:01:04 by maolivie         ###   ########.fr       */
+/*   Updated: 2019/01/06 17:54:09 by maolivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,17 @@ static short	check_format(char *buff)
 static short	check_tetri(char *buff)
 {
 	short	i;
-	short	hashtag;
+	short	sharp;
 	short	link;
 
 	i = 0;
-	hashtag = 0;
+	sharp = 0;
 	link = 0;
 	while (i < 19)
 	{
 		if (buff[i] == '#')
 		{
-			hashtag++;
+			sharp++;
 			if (buff[i + 1] == '#')
 				link++;
 			if (i < 14 && buff[i + 5] == '#')
@@ -48,7 +48,7 @@ static short	check_tetri(char *buff)
 		}
 		i++;
 	}
-	if (hashtag != 4 || link < 3)
+	if (sharp != 4 || link < 3)
 		return (0);
 	return (1);
 }
