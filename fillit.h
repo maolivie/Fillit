@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fillit.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kemethen <kemethen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maolivie <maolivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 15:49:28 by kemethen          #+#    #+#             */
-/*   Updated: 2019/01/04 19:55:28 by maolivie         ###   ########.fr       */
+/*   Updated: 2019/01/06 18:32:45 by maolivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,6 @@
 # include <stdio.h>
 # include "libft.h"
 
-short	check_file(int fd, char *buff);
+short	check_file(int fd);
 
 #endif

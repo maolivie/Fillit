@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kemethen <kemethen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maolivie <maolivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/14 13:45:05 by kemethen          #+#    #+#             */
-/*   Updated: 2019/01/04 19:58:00 by maolivie         ###   ########.fr       */
+/*   Updated: 2019/01/06 18:29:50 by maolivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int		main(int ac, char **av)
 {
 	int		fd;
-	char	buff[21];
 
 	if (ac != 2)
 	{
@@ -23,7 +22,7 @@ int		main(int ac, char **av)
 		return (0);
 	}
 	fd = open(av[1], O_RDONLY);
-	if (!check_file(fd, buff))
+	if (!check_file(fd))
 	{
 		ft_putstr("error\n");
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: maolivie <maolivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 15:37:18 by kemethen          #+#    #+#             */
-/*   Updated: 2019/01/06 17:54:09 by maolivie         ###   ########.fr       */
+/*   Updated: 2019/01/06 18:30:45 by maolivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,15 @@ static short	check_tetri(char *buff)
 	return (1);
 }
 
-short			check_file(int fd, char *buff)
+short			check_file(int fd)
 {
+	char	buff[21];
 	short	ret;
 	short	last_ret;
 
 	last_ret = 0;
 	while ((ret = read(fd, buff, 21)) > 0)
 	{
-		last_ret = ret;
 		if (ret < 20)
 			return (0);
 		if (!check_format(buff))
@@ -70,6 +70,7 @@ short			check_file(int fd, char *buff)
 			return (0);
 		if (ret == 21 && buff[20] != '\n')
 			return (0);
+		last_ret = ret;
 	}
 	return (last_ret == 20);
 }
