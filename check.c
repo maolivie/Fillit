@@ -6,7 +6,7 @@
 /*   By: maolivie <maolivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 15:37:18 by kemethen          #+#    #+#             */
-/*   Updated: 2019/01/06 18:54:07 by maolivie         ###   ########.fr       */
+/*   Updated: 2019/01/06 19:19:26 by maolivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ static short	check_format(char *buff)
 	while (i++ < 20)
 	{
 		if (!(i % 5) && buff[i - 1] != '\n')
-			return (0);
+			return (-1);
 		if (i % 5 && buff[i - 1] != '#' && buff[i - 1] != '.')
-			return (0);
+			return (-1);
 	}
-	return (1);
+	return (0);
 }
 
 static short	check_tetri(char *buff)
@@ -49,8 +49,8 @@ static short	check_tetri(char *buff)
 		i++;
 	}
 	if (sharp != 4 || link < 3)
-		return (0);
-	return (1);
+		return (-1);
+	return (0);
 }
 
 short			check_file(int fd)
@@ -65,15 +65,15 @@ short			check_file(int fd)
 	while ((ret = read(fd, buff, 21)) > 0)
 	{
 		if (ret < 20 || tetri == 26)
-			return (0);
-		if (!check_format(buff))
-			return (0);
-		if (!check_tetri(buff))
-			return (0);
+			return (-1);
+		if (check_format(buff))
+			return (-1);
+		if (check_tetri(buff))
+			return (-1);
 		if (ret == 21 && buff[20] != '\n')
-			return (0);
+			return (-1);
 		tetri++;
 		last_ret = ret;
 	}
-	return (last_ret == 20);
+	return (-(last_ret != 20));
 }
