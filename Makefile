@@ -6,7 +6,7 @@
 #    By: maolivie <maolivie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 16:19:46 by maolivie          #+#    #+#              #
-#    Updated: 2019/01/06 22:25:55 by maolivie         ###   ########.fr        #
+#    Updated: 2019/01/07 10:44:30 by maolivie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ OBJDIR			= obj/
 INCDIR			= includes/
 
 SRC				= main.c \
-				  check.c
+				  parsing.c
+
 
 CFLAGS		   += -I $(INCDIR)
 OBJ				= $(SRC:.c=.o)
