@@ -1,26 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fillit.h                                           :+:      :+:    :+:   */
+/*   output.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maolivie <maolivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/03 15:49:28 by kemethen          #+#    #+#             */
+/*   Created: 2019/01/07 14:30:52 by maolivie          #+#    #+#             */
 /*   Updated: 2019/01/07 17:25:04 by maolivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FILLIT_H
-# define FILLIT_H
+#include "../includes/fillit.h"
 
-# include <fcntl.h>
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <unistd.h>
-# include <stdlib.h>
+static void		display_a_tetri(unsigned short tetri)
+{
+	short	i;
 
-unsigned short	power_of_2(short power);
-short			parse_file(int fd, unsigned short **parsed);
-void			display_all_tetris(unsigned short *parsed);
+	i = 16;
+	while (--i >= 0)
+	{
+		if (tetri >= power_of_2(i))
+		{
+			write(1, "#", 1);
+			tetri -= power_of_2(i);
+		}
+		else
+			write(1, ".", 1);
+		if (i % 4 == 0)
+			write(1, "\n", 1);
+	}
+}
 
-#endif
+void			display_all_tetris(unsigned short *parsed)
+{
+	short	i;
+
+	i = 0;
+	while (parsed[i])
+	{
+		display_a_tetri(parsed[i]);
+		write(1, "\n", 1);
+		++i;
+	}
+	return ;
+}
