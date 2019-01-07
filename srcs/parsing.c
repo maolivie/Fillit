@@ -6,13 +6,22 @@
 /*   By: maolivie <maolivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 15:37:18 by kemethen          #+#    #+#             */
-/*   Updated: 2019/01/07 11:20:29 by maolivie         ###   ########.fr       */
+/*   Updated: 2019/01/07 13:23:44 by maolivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static short	check_format(char *buff)
+static unsigned short	power_of_2(short power)
+{
+	if (power < 0)
+		return (0);
+	if (power == 0)
+		return (1);
+	return (2 * power_of_2(power - 1));
+}
+
+static short			check_format(char *buff)
 {
 	short	i;
 
@@ -27,7 +36,7 @@ static short	check_format(char *buff)
 	return (0);
 }
 
-static short	check_tetri(char *buff)
+static short			check_tetri(char *buff)
 {
 	short	i;
 	short	sharp;
@@ -53,13 +62,31 @@ static short	check_tetri(char *buff)
 	return (0);
 }
 
-short			parse_file(int fd)
+static void				parse_tetri(char *buff, short *tetris, short index)
+{
+	short			i;
+	unsigned short	result;
+
+	i = 0;
+	result = 0;
+	while (i < 19)
+	{
+		if (buff[i] == '#')
+			result += power_of_2(i - i / 5);
+		i++;
+	}
+	tetris[index] = result;
+}
+
+short					parse_file(int fd, short **parsed)
 {
 	char	buff[21];
 	short	tetri;
 	short	ret;
 	short	last_ret;
 
+	if (!(*parsed = (short*)malloc(sizeof(short) * 27)))
+		return (-1);
 	tetri = 0;
 	last_ret = 0;
 	while ((ret = read(fd, buff, 21)) > 0)
@@ -72,6 +99,7 @@ short			parse_file(int fd)
 			return (-1);
 		if (ret == 21 && buff[20] != '\n')
 			return (-1);
+		parse_tetri(buff, *parsed, tetri);
 		tetri++;
 		last_ret = ret;
 	}
