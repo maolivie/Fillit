@@ -6,7 +6,7 @@
 /*   By: maolivie <maolivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 15:49:28 by kemethen          #+#    #+#             */
-/*   Updated: 2019/01/06 19:25:37 by maolivie         ###   ########.fr       */
+/*   Updated: 2019/01/07 11:22:12 by maolivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@
 # include <sys/uio.h>
 # include <unistd.h>
 
-short	check_file(int fd);
+short	parse_file(int fd);
 
 #endif

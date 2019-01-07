@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check.c                                            :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maolivie <maolivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 15:37:18 by kemethen          #+#    #+#             */
-/*   Updated: 2019/01/06 19:19:26 by maolivie         ###   ########.fr       */
+/*   Updated: 2019/01/07 11:20:29 by maolivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static short	check_tetri(char *buff)
 	return (0);
 }
 
-short			check_file(int fd)
+short			parse_file(int fd)
 {
 	char	buff[21];
 	short	tetri;
@@ -66,14 +66,14 @@ short			check_file(int fd)
 	{
 		if (ret < 20 || tetri == 26)
 			return (-1);
-		if (check_format(buff))
+		if (check_format(buff) == -1)
 			return (-1);
-		if (check_tetri(buff))
+		if (check_tetri(buff) == -1)
 			return (-1);
 		if (ret == 21 && buff[20] != '\n')
 			return (-1);
 		tetri++;
 		last_ret = ret;
 	}
-	return (-(last_ret != 20));
+	return (last_ret == 20 ? 0 : -1);
 }

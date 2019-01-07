@@ -6,13 +6,13 @@
 /*   By: maolivie <maolivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/14 13:45:05 by kemethen          #+#    #+#             */
-/*   Updated: 2019/01/06 19:40:01 by maolivie         ###   ########.fr       */
+/*   Updated: 2019/01/07 11:19:22 by maolivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int		main(int argc, char **argv)
+static	int	process_input(int argc, char **argv)
 {
 	int		fd;
 
@@ -26,13 +26,24 @@ int		main(int argc, char **argv)
 		write(2, "Open() failed.\nPlease try again with another file.\n", 51);
 		return (-1);
 	}
-	if (check_file(fd))
+	if (parse_file(fd) == -1)
 	{
 		write(2, "Wrong file format !\n", 20);
+		if (close(fd) == -1)
+			write(2, "Close() failed.\n", 16);
 		return (-1);
 	}
 	write(1, "File format correct !\n", 22);
-	if (close(fd))
+	return (fd);
+}
+
+int			main(int argc, char **argv)
+{
+	int		fd;
+
+	if ((fd = process_input(argc, argv)) == -1)
+		return (-1);
+	if (close(fd) == -1)
 	{
 		write(2, "Close() failed.\n", 16);
 		return (-1);
