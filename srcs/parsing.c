@@ -6,7 +6,7 @@
 /*   By: maolivie <maolivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 15:37:18 by kemethen          #+#    #+#             */
-/*   Updated: 2019/01/07 13:23:44 by maolivie         ###   ########.fr       */
+/*   Updated: 2019/01/07 14:25:20 by maolivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static short			check_tetri(char *buff)
 	return (0);
 }
 
-static void				parse_tetri(char *buff, short *tetris, short index)
+static unsigned short	parse_tetri(char *buff)
 {
 	short			i;
 	unsigned short	result;
@@ -75,17 +75,17 @@ static void				parse_tetri(char *buff, short *tetris, short index)
 			result += power_of_2(i - i / 5);
 		i++;
 	}
-	tetris[index] = result;
+	return (result);
 }
 
-short					parse_file(int fd, short **parsed)
+short					parse_file(int fd, unsigned short **parsed)
 {
 	char	buff[21];
 	short	tetri;
 	short	ret;
 	short	last_ret;
 
-	if (!(*parsed = (short*)malloc(sizeof(short) * 27)))
+	if (!(*parsed = (unsigned short*)malloc(sizeof(unsigned short) * 27)))
 		return (-1);
 	tetri = 0;
 	last_ret = 0;
@@ -99,9 +99,10 @@ short					parse_file(int fd, short **parsed)
 			return (-1);
 		if (ret == 21 && buff[20] != '\n')
 			return (-1);
-		parse_tetri(buff, *parsed, tetri);
+		(*parsed)[tetri] = parse_tetri(buff);
 		tetri++;
 		last_ret = ret;
 	}
+	(*parsed)[tetri] = 0;
 	return (last_ret == 20 ? 0 : -1);
 }

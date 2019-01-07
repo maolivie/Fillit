@@ -6,13 +6,13 @@
 /*   By: maolivie <maolivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/14 13:45:05 by kemethen          #+#    #+#             */
-/*   Updated: 2019/01/07 13:22:56 by maolivie         ###   ########.fr       */
+/*   Updated: 2019/01/07 14:17:52 by maolivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static	int	process_input(int argc, char **argv, short **parsing)
+static	int	process_input(int argc, char **argv, unsigned short **parsing)
 {
 	int		fd;
 
@@ -40,8 +40,8 @@ static	int	process_input(int argc, char **argv, short **parsing)
 
 int			main(int argc, char **argv)
 {
-	int		fd;
-	short	*tetris;
+	int				fd;
+	unsigned short	*tetris;
 
 	if ((fd = process_input(argc, argv, &tetris)) == -1)
 		return (-1);

@@ -6,7 +6,7 @@
 /*   By: maolivie <maolivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 15:49:28 by kemethen          #+#    #+#             */
-/*   Updated: 2019/01/07 12:21:00 by maolivie         ###   ########.fr       */
+/*   Updated: 2019/01/07 14:09:40 by maolivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-short	parse_file(int fd, short **parsed);
+short	parse_file(int fd, unsigned short **parsed);
 
 #endif
