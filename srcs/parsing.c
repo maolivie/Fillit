@@ -6,7 +6,7 @@
 /*   By: maolivie <maolivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 15:37:18 by kemethen          #+#    #+#             */
-/*   Updated: 2019/01/25 10:54:03 by maolivie         ###   ########.fr       */
+/*   Updated: 2019/01/25 11:33:40 by maolivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ static int	check_file(char *buf, int ret)
 	while (ret > 0)
 	{
 		i = 0;
-		while (++i <= 20)
+		while (i++ < 20)
 		{
 			if (i % 5 == 0 && buf[i - 1] != '\n')
 				return (-1);
 			if (i % 5 && buf[i - 1] != '#' && buf[i - 1] != '.')
 				return (-1);
 		}
-		if (ret > 20 && buf[i] != '\n')
+		if (ret > 20 && buf[20] != '\n')
 			return (-1);
 		if (check_tetri(buf) == -1)
 			return (-1);
@@ -86,24 +86,25 @@ int			create_list(char *buf, int ret, t_tetri **alst)
 {
 	t_tetri	*lst;
 	t_tetri	*tmp;
-	int		i;
-	int		sharp;
 
+	*alst = NULL;
 	tmp = NULL;
 	while (ret > 0)
 	{
-		i = 0;
-		sharp = 0;
 		if ((lst = (t_tetri*)malloc(sizeof(t_tetri))) == NULL)
 			return (-1);
+		if (*alst == NULL)
+			*alst = lst;
 		put_coord(buf, lst);
 		lst->prev = tmp;
 		if (lst->prev)
 			lst->prev->next = lst;
 		tmp = lst;
 		ret -= 21;
+		buf += 21;
 	}
 	lst->next == NULL;
+	return (0);
 }
 
 int			parse_file(int fd, t_tetri **alst)
