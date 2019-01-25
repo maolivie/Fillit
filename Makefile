@@ -6,7 +6,7 @@
 #    By: maolivie <maolivie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 16:19:46 by maolivie          #+#    #+#              #
-#    Updated: 2019/01/25 04:13:00 by maolivie         ###   ########.fr        #
+#    Updated: 2019/01/25 05:38:27 by maolivie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,14 +15,13 @@ CC		= gcc
 CFLAGS	+= -Wall -Wextra -Werror
 SRCDIR	= srcs
 OBJDIR	= obj
-INCDIR	= includes
+
+HEAD	= $(SRCDIR)/fillit.h
 
 SRC		= main.c \
 		  parsing.c \
 		  output.c
 
-
-CFLAGS	+= -I$(INCDIR)
 OBJ		= $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 
 GREEN	= \033[1;32m
@@ -39,7 +38,7 @@ $(NAME): $(OBJ)
 	@$(CC) -o $@ $^
 	@echo "$@  \t[$(GREEN)✓$(WHITE)]"
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c $(INCDIR)
+$(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEAD)
 	@echo "$(PURPLE)Updating\t$(WHITE)$@"
 	@$(CC) $(CFLAGS) -o $@ -c $<
 
