@@ -1,39 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fillit.h                                           :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maolivie <maolivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/03 15:49:28 by kemethen          #+#    #+#             */
-/*   Updated: 2019/01/25 09:59:41 by maolivie         ###   ########.fr       */
+/*   Created: 2018/11/13 15:52:36 by maolivie          #+#    #+#             */
+/*   Updated: 2019/01/17 17:38:18 by maolivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FILLIT_H
-# define FILLIT_H
+#include "libft.h"
 
-# include <fcntl.h>
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <stdlib.h>
-# include <libft.h>
-
-typedef struct	s_dot
+int		ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	short x;
-	short y;
-}				t_dot;
-typedef struct	s_tetri
-{
-	t_dot			a;
-	t_dot			b;
-	t_dot			c;
-	t_dot			d;
-	char			letter;
-	int				flag;
-	struct s_tetri	*prev;
-	struct s_tetri	*next;
-}				t_tetri;
+	size_t i;
 
-#endif
+	if (n == 0)
+		return (0);
+	i = 0;
+	while (s1[i] && s1[i] == s2[i] && i < n - 1)
+		++i;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}

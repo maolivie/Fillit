@@ -1,39 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fillit.h                                           :+:      :+:    :+:   */
+/*   ft_strmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maolivie <maolivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/03 15:49:28 by kemethen          #+#    #+#             */
-/*   Updated: 2019/01/25 09:59:41 by maolivie         ###   ########.fr       */
+/*   Created: 2018/12/01 13:33:11 by maolivie          #+#    #+#             */
+/*   Updated: 2019/01/17 19:35:38 by maolivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FILLIT_H
-# define FILLIT_H
+#include "libft.h"
 
-# include <fcntl.h>
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <stdlib.h>
-# include <libft.h>
-
-typedef struct	s_dot
+char	*ft_strmap(char const *s, char (*f)(char))
 {
-	short x;
-	short y;
-}				t_dot;
-typedef struct	s_tetri
-{
-	t_dot			a;
-	t_dot			b;
-	t_dot			c;
-	t_dot			d;
-	char			letter;
-	int				flag;
-	struct s_tetri	*prev;
-	struct s_tetri	*next;
-}				t_tetri;
+	char	*str;
+	size_t	i;
 
-#endif
+	if (s == NULL || f == NULL)
+		return (NULL);
+	if ((str = ft_strnew(ft_strlen(s))) == NULL)
+		return (NULL);
+	i = 0;
+	while (s[i])
+	{
+		str[i] = (*f)(s[i]);
+		++i;
+	}
+	return (str);
+}

@@ -6,15 +6,17 @@
 #    By: maolivie <maolivie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 16:19:46 by maolivie          #+#    #+#              #
-#    Updated: 2019/01/25 05:38:27 by maolivie         ###   ########.fr        #
+#    Updated: 2019/01/25 07:00:56 by maolivie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= fillit
 CC		= gcc
-CFLAGS	+= -Wall -Wextra -Werror
+CFLAGS += -Wall -Wextra -Werror
 SRCDIR	= srcs
 OBJDIR	= obj
+LIBDIR	= libft
+INCDIR	= $(LIBDIR)
 
 HEAD	= $(SRCDIR)/fillit.h
 
@@ -22,7 +24,9 @@ SRC		= main.c \
 		  parsing.c \
 		  output.c
 
+CFLAGS += -I$(INCDIR)
 OBJ		= $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
+LIB		= $(LIBDIR)/libft.a
 
 GREEN	= \033[1;32m
 PURPLE	= \033[1;35m
@@ -33,10 +37,13 @@ WHITE	= \033[1;37m
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(LIB) $(OBJ)
 	@echo "\n$(GREEN)Compiling\t$(YELLOW)$@ $(WHITE)with $^"
 	@$(CC) -o $@ $^
 	@echo "$@  \t[$(GREEN)✓$(WHITE)]"
+
+$(LIB):
+	@make -C $(LIBDIR)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEAD)
 	@echo "$(PURPLE)Updating\t$(WHITE)$@"
@@ -49,13 +56,15 @@ $(OBJDIR):
 	@mkdir $@
 
 clean:
+	@make -C $(LIBDIR) clean
 	@echo "$(RED)Deleting\t$(WHITE)directory $(BLUE)'$(OBJDIR)'"
 	@rm -rf $(OBJDIR)
 
 fclean: clean
+	@make -C $(LIBDIR) fclean
 	@echo "$(RED)Deleting\t$(YELLOW)$(NAME)\n"
 	@rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re $(LIB)
