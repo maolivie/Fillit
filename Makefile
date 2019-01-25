@@ -6,44 +6,56 @@
 #    By: maolivie <maolivie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 16:19:46 by maolivie          #+#    #+#              #
-#    Updated: 2019/01/07 17:01:31 by maolivie         ###   ########.fr        #
+#    Updated: 2019/01/25 04:13:00 by maolivie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME			= fillit
-CC				= gcc
-CFLAGS		   += -Wall -Wextra -Werror
-SRCDIR			= srcs/
-OBJDIR			= obj/
-INCDIR			= includes/
+NAME	= fillit
+CC		= gcc
+CFLAGS	+= -Wall -Wextra -Werror
+SRCDIR	= srcs
+OBJDIR	= obj
+INCDIR	= includes
 
-SRC				= main.c \
-				  parsing.c \
-				  output.c
+SRC		= main.c \
+		  parsing.c \
+		  output.c
 
 
-CFLAGS		   += -I $(INCDIR)
-OBJ				= $(SRC:.c=.o)
-OUTPUT_OPTION	= -o $(OBJDIR)$@
+CFLAGS	+= -I$(INCDIR)
+OBJ		= $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 
-vpath %.c $(SRCDIR)
-vpath %.o $(OBJDIR)
+GREEN	= \033[1;32m
+PURPLE	= \033[1;35m
+RED		= \033[1;31m
+YELLOW	= \033[1;33m
+BLUE	= \033[1;36m
+WHITE	= \033[1;37m
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) -o $@ $(addprefix $(OBJDIR),$(OBJ))
+	@echo "\n$(GREEN)Compiling\t$(YELLOW)$@ $(WHITE)with $^"
+	@$(CC) -o $@ $^
+	@echo "$@  \t[$(GREEN)✓$(WHITE)]"
 
-$(OBJ): %: | $(OBJDIR)
+$(OBJDIR)/%.o: $(SRCDIR)/%.c $(INCDIR)
+	@echo "$(PURPLE)Updating\t$(WHITE)$@"
+	@$(CC) $(CFLAGS) -o $@ -c $<
+
+$(OBJ): | $(OBJDIR)
 
 $(OBJDIR):
-	mkdir $@
+	@echo "$(GREEN)Creating\t$(WHITE)directory $(BLUE)'$@'\n"
+	@mkdir $@
 
 clean:
-	rm -Rf $(OBJDIR)
+	@echo "$(RED)Deleting\t$(WHITE)directory $(BLUE)'$(OBJDIR)'"
+	@rm -rf $(OBJDIR)
 
 fclean: clean
-	rm -f $(NAME)
+	@echo "$(RED)Deleting\t$(YELLOW)$(NAME)\n"
+	@rm -f $(NAME)
 
 re: fclean all
 
