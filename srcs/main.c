@@ -6,15 +6,15 @@
 /*   By: maolivie <maolivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/14 13:45:05 by kemethen          #+#    #+#             */
-/*   Updated: 2019/01/25 11:34:06 by maolivie         ###   ########.fr       */
+/*   Updated: 2019/01/25 13:49:20 by maolivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static	int	process_input(int argc, char **argv, t_tetri **alst)
+static int	process_input(int argc, char **argv, t_tetri **alst)
 {
-	int		fd;
+	int fd;
 
 	if (argc != 2)
 	{
@@ -43,6 +43,5 @@ int			main(int argc, char **argv)
 	if (process_input(argc, argv, &lst) == -1)
 		return (-1);
 	display_all_tetris(lst);
-	free(lst);
 	return (0);
 }

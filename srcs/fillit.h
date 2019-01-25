@@ -6,7 +6,7 @@
 /*   By: maolivie <maolivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 15:49:28 by kemethen          #+#    #+#             */
-/*   Updated: 2019/01/25 09:59:41 by maolivie         ###   ########.fr       */
+/*   Updated: 2019/01/25 13:52:16 by maolivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/uio.h>
+# include <unistd.h>
 # include <stdlib.h>
 # include <libft.h>
 
@@ -30,10 +31,13 @@ typedef struct	s_tetri
 	t_dot			b;
 	t_dot			c;
 	t_dot			d;
-	char			letter;
 	int				flag;
+	char			letter;
 	struct s_tetri	*prev;
 	struct s_tetri	*next;
 }				t_tetri;
+
+int				parse_file(int fd, t_tetri **alst);
+void			display_all_tetris(t_tetri *lst);
 
 #endif

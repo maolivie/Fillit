@@ -6,7 +6,7 @@
 /*   By: maolivie <maolivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 15:37:18 by kemethen          #+#    #+#             */
-/*   Updated: 2019/01/25 11:33:40 by maolivie         ###   ########.fr       */
+/*   Updated: 2019/01/25 14:39:10 by maolivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static int	check_tetri(char *buf)
 {
-	int		i;
-	int		sharp;
-	int		link;
+	int i;
+	int sharp;
+	int link;
 
 	i = 0;
 	sharp = 0;
@@ -45,7 +45,7 @@ static int	check_file(char *buf, int ret)
 	while (ret > 0)
 	{
 		i = 0;
-		while (i++ < 20)
+		while (++i <= 20)
 		{
 			if (i % 5 == 0 && buf[i - 1] != '\n')
 				return (-1);
@@ -62,23 +62,37 @@ static int	check_file(char *buf, int ret)
 	return (0);
 }
 
-void		put_coord(char *buf, t_tetri *tetri)
+void		put_coord(char *buf, t_tetri *ttri)
 {
 	short	*ptr;
 	int		i;
 	int		sharp;
 
-	ptr = (short*)tetri;
+	ptr = (short*)ttri;
 	i = 0;
 	sharp = 0;
 	while (i < 19)
 	{
 		if (buf[i] == '#')
 		{
-			*(ptr + sharp++) = i % 5; //this is GREEDY AF
-			*(ptr + sharp++) = i / 5; //But if it does work then SMD
+			*(ptr + sharp++) = i % 5;
+			*(ptr + sharp++) = i / 5;
 		}
 		++i;
+	}
+	while (ttri->a.x > 0 && ttri->b.x > 0 && ttri->c.x > 0 && ttri->d.x > 0)
+	{
+		ttri->a.x--;
+		ttri->b.x--;
+		ttri->c.x--;
+		ttri->d.x--;
+	}
+	while (ttri->a.y > 0 && ttri->b.y > 0 && ttri->c.y > 0 && ttri->d.y > 0)
+	{
+		ttri->a.y--;
+		ttri->b.y--;
+		ttri->c.y--;
+		ttri->d.y--;
 	}
 }
 
@@ -103,7 +117,7 @@ int			create_list(char *buf, int ret, t_tetri **alst)
 		ret -= 21;
 		buf += 21;
 	}
-	lst->next == NULL;
+	lst->next = NULL;
 	return (0);
 }
 

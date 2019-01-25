@@ -6,42 +6,48 @@
 /*   By: maolivie <maolivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 14:30:52 by maolivie          #+#    #+#             */
-/*   Updated: 2019/01/25 05:41:31 by maolivie         ###   ########.fr       */
+/*   Updated: 2019/01/25 13:53:25 by maolivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static void		display_a_tetri(unsigned short tetri)
+static void	display_a_tetri(t_tetri *tetri)
 {
-	short	i;
+	int		i;
+	int		j;
 
-	i = 16;
-	while (--i >= 0)
+	i = 0;
+	while (i < 4)
 	{
-		if (tetri >= power_of_2(i))
+		j = 0;
+		while (j < 4)
 		{
-			write(1, "#", 1);
-			tetri -= power_of_2(i);
+			if (tetri->a.x == j && tetri->a.y == i)
+				write(1, "#", 1);
+			else if (tetri->b.x == j && tetri->b.y == i)
+				write(1, "#", 1);
+			else if (tetri->c.x == j && tetri->c.y == i)
+				write(1, "#", 1);
+			else if (tetri->d.x == j && tetri->d.y == i)
+				write(1, "#", 1);
+			else
+				write(1, ".", 1);
+			j++;
 		}
-		else
-			write(1, ".", 1);
-		if (i % 4 == 0)
-			write(1, "\n", 1);
+		write(1, "\n", 1);
+		i++;
 	}
 	return ;
 }
 
-void			display_all_tetris(unsigned short *parsed)
+void		display_all_tetris(t_tetri *lst)
 {
-	short	i;
-
-	i = 0;
-	while (parsed[i])
+	while (lst)
 	{
-		display_a_tetri(parsed[i]);
+		display_a_tetri(lst);
 		write(1, "\n", 1);
-		++i;
+		lst = lst->next;
 	}
 	return ;
 }
