@@ -6,7 +6,7 @@
 /*   By: maolivie <maolivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 15:49:28 by kemethen          #+#    #+#             */
-/*   Updated: 2019/01/25 13:52:16 by maolivie         ###   ########.fr       */
+/*   Updated: 2019/01/25 18:43:30 by maolivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ typedef struct	s_tetri
 }				t_tetri;
 
 int				parse_file(int fd, t_tetri **alst);
+int				create_list(char *buf, int ret, t_tetri **alst);
+void			init_list_data(t_tetri *lst);
+void			list_clear(t_tetri *lst);
 void			display_all_tetris(t_tetri *lst);
 
 #endif

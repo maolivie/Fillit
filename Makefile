@@ -6,7 +6,7 @@
 #    By: maolivie <maolivie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 16:19:46 by maolivie          #+#    #+#              #
-#    Updated: 2019/01/25 07:00:56 by maolivie         ###   ########.fr        #
+#    Updated: 2019/01/25 17:38:52 by maolivie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ HEAD	= $(SRCDIR)/fillit.h
 
 SRC		= main.c \
 		  parsing.c \
+		  list_utility.c \
 		  output.c
 
 CFLAGS += -I$(INCDIR)

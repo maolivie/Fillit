@@ -6,7 +6,7 @@
 /*   By: maolivie <maolivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/14 13:45:05 by kemethen          #+#    #+#             */
-/*   Updated: 2019/01/25 13:49:20 by maolivie         ###   ########.fr       */
+/*   Updated: 2019/01/25 18:36:56 by maolivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,6 @@ int			main(int argc, char **argv)
 	if (process_input(argc, argv, &lst) == -1)
 		return (-1);
 	display_all_tetris(lst);
+	list_clear(lst);
 	return (0);
 }

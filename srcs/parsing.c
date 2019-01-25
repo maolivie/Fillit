@@ -6,7 +6,7 @@
 /*   By: maolivie <maolivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 15:37:18 by kemethen          #+#    #+#             */
-/*   Updated: 2019/01/25 14:39:10 by maolivie         ###   ########.fr       */
+/*   Updated: 2019/01/25 18:43:10 by maolivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,65 +62,6 @@ static int	check_file(char *buf, int ret)
 	return (0);
 }
 
-void		put_coord(char *buf, t_tetri *ttri)
-{
-	short	*ptr;
-	int		i;
-	int		sharp;
-
-	ptr = (short*)ttri;
-	i = 0;
-	sharp = 0;
-	while (i < 19)
-	{
-		if (buf[i] == '#')
-		{
-			*(ptr + sharp++) = i % 5;
-			*(ptr + sharp++) = i / 5;
-		}
-		++i;
-	}
-	while (ttri->a.x > 0 && ttri->b.x > 0 && ttri->c.x > 0 && ttri->d.x > 0)
-	{
-		ttri->a.x--;
-		ttri->b.x--;
-		ttri->c.x--;
-		ttri->d.x--;
-	}
-	while (ttri->a.y > 0 && ttri->b.y > 0 && ttri->c.y > 0 && ttri->d.y > 0)
-	{
-		ttri->a.y--;
-		ttri->b.y--;
-		ttri->c.y--;
-		ttri->d.y--;
-	}
-}
-
-int			create_list(char *buf, int ret, t_tetri **alst)
-{
-	t_tetri	*lst;
-	t_tetri	*tmp;
-
-	*alst = NULL;
-	tmp = NULL;
-	while (ret > 0)
-	{
-		if ((lst = (t_tetri*)malloc(sizeof(t_tetri))) == NULL)
-			return (-1);
-		if (*alst == NULL)
-			*alst = lst;
-		put_coord(buf, lst);
-		lst->prev = tmp;
-		if (lst->prev)
-			lst->prev->next = lst;
-		tmp = lst;
-		ret -= 21;
-		buf += 21;
-	}
-	lst->next = NULL;
-	return (0);
-}
-
 int			parse_file(int fd, t_tetri **alst)
 {
 	char	buf[546];
@@ -132,6 +73,10 @@ int			parse_file(int fd, t_tetri **alst)
 	if (check_file(buf, ret) == -1)
 		return (-1);
 	if (create_list(buf, ret, alst) == -1)
+	{
+		list_clear(*alst);
 		return (-1);
+	}
+	init_list_data(*alst);
 	return (0);
 }
